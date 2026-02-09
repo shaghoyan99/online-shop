@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Home</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: adminSidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-header">
+            <div>
+                <h2 class="section-title">Admin Panel</h2>
+                <p class="section-subtitle">Manage categories, products, and user accounts.</p>
+            </div>
+            <a href="/">
+                <button type="button">Main Page</button>
+            </a>
+        </div>
+        <div class="admin-card">
+            <h3>Welcome back</h3>
+            <p class="section-subtitle">Everything is under control. Pick a section to start managing the shop.</p>
+        </div>
+    </main>
+</div>
+</body>
+</html>

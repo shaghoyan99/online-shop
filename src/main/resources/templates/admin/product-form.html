@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Form</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: adminSidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-header">
+            <div>
+                <h2 class="section-title" th:text="${product != null ? 'Edit Product' : 'Create Product'}">Create Product</h2>
+                <p class="section-subtitle">Add a clean name, pricing, and details.</p>
+            </div>
+        </div>
+        <div class="admin-card">
+            <form th:action="${product != null} ? '/admin/products/' + ${product.id} + '/edit' : '/admin/createProduct'"
+                  method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" th:if="${product != null}" th:value="${product.id}">
+                <label class="auth-label" for="title">Title</label>
+                <input id="title" type="text" name="title" placeholder="Title"
+                       th:value="${product != null ? product.title : ''}" required>
+                <label class="auth-label" for="price">Price</label>
+                <input id="price" type="number" name="price" placeholder="Price"
+                       th:value="${product != null ? product.price : ''}" required>
+                <label class="auth-label" for="description">Description</label>
+                <textarea id="description" name="description" placeholder="Description"
+                          th:text="${product != null ? product.description : ''}"></textarea>
+                <label class="auth-label" for="category">Category</label>
+                <select id="category" name="category.id" required>
+                    <option value="">Select Category</option>
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}"
+                            th:selected="${product != null && product.category != null && product.category.id == category.id}">
+                        Category
+                    </option>
+                </select>
+                <label class="auth-label" for="photo">Photo</label>
+                <input id="photo" type="file" name="photo" accept="image/*">
+                <p class="section-subtitle" th:if="${product != null}">Leave empty to keep current photo.</p>
+                <button type="submit" class="form-actions"
+                        th:text="${product != null ? 'Save Changes' : 'Save'}">Save</button>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

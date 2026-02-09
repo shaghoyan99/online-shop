@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="auth-page">
+<div class="auth-shell">
+    <section class="auth-visual">
+        <div class="auth-brand">
+            <span class="brand-mark">MS</span>
+            <span class="brand-name">MyShop</span>
+        </div>
+        <h1>Back for more?</h1>
+        <p>Sign in to pick up your cart, track deliveries, and unlock member-only deals.</p>
+        <p>Fast checkout. Clean design. Shopping that feels effortless.</p>
+    </section>
+    <section class="auth-card">
+        <div>
+            <h2>Login</h2>
+            <p class="auth-subtitle">Use your email and password to continue.</p>
+        </div>
+        <div th:if="${msg} != null" class="auth-message" th:text="${msg}"></div>
+        <form action="/login" method="post" class="auth-form">
+            <label class="auth-label" for="email">Email</label>
+            <input class="auth-input" id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+            <label class="auth-label" for="password">Password</label>
+            <input class="auth-input" id="password" type="password" name="password" placeholder="Your password" required autocomplete="current-password">
+            <button class="auth-button" type="submit">Login</button>
+        </form>
+        <p class="auth-alt">
+            New here?
+            <a href="/register">Create an account</a>
+        </p>
+    </section>
+</div>
+</body>
+</html>

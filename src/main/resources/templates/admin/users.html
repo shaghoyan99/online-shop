@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: adminSidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-header">
+            <div>
+                <h2 class="section-title">All Users</h2>
+                <p class="section-subtitle">Manage access and roles.</p>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                <tr>
+                    <th style="text-align: left; padding: 8px 0;">Name</th>
+                    <th style="text-align: left; padding: 8px 0;">Email</th>
+                    <th style="text-align: left; padding: 8px 0;">Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}" style="border-top: 1px solid #eef0f5;">
+                    <td style="padding: 10px 0;" th:text="${user.name + ' ' + user.surname}">John Doe</td>
+                    <td style="padding: 10px 0;" th:text="${user.email}">john@example.com</td>
+                    <td style="padding: 10px 0;">
+                        <span class="chip" th:text="${user.role}">USER</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="section-subtitle" th:if="${#lists.isEmpty(users)}" style="margin-top: 12px;">
+                No users available.
+            </p>
+        </div>
+    </main>
+</div>
+</body>
+</html>

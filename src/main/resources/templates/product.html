@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="page">
+<div th:replace="~{fragments :: headerFragment}"></div>
+
+<main class="page-inner">
+    <div class="section-head">
+        <div>
+            <h2 class="section-title" th:text="${category != null ? 'Products by ' + category.name : 'Products'}">Products</h2>
+            <p class="section-subtitle">Hand-picked products for the category you chose.</p>
+        </div>
+        <span class="pill">New arrivals</span>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card" th:each="product : ${products}">
+            <img th:if="${product.pictureName != null}"
+                 th:src="@{/image/get(photo=${product.pictureName})}"
+                 alt="Product image">
+            <img th:if="${product.pictureName == null}" src="/images/placeholder.jpg" alt="Product image">
+            <h3 th:text="${product.title}">Product Title</h3>
+            <a th:href="@{/products/{id}(id=${product.id})}">
+                <button type="button">View details</button>
+            </a>
+        </div>
+    </div>
+    <p class="section-subtitle" th:if="${#lists.isEmpty(products)}">No products available yet.</p>
+</main>
+</body>
+</html>

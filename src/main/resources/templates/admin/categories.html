@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Categories</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: adminSidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-header">
+            <div>
+                <h2 class="section-title">Categories</h2>
+                <p class="section-subtitle">Organize the store by grouping products.</p>
+            </div>
+            <a href="/admin/createCategory">
+                <button type="button">Create Category</button>
+            </a>
+        </div>
+
+        <div class="admin-card">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                <tr>
+                    <th style="text-align: left; padding: 8px 0;">Category</th>
+                    <th style="text-align: left; padding: 8px 0;">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="category : ${categories}" style="border-top: 1px solid #eef0f5;">
+                    <td style="padding: 10px 0;" th:text="${category.name}">Category name</td>
+                    <td style="padding: 10px 0;">
+                        <a th:href="'/admin/categories/' + ${category.id} + '/edit'">
+                            <button type="button">Change</button>
+                        </a>
+                        <form th:action="'/admin/categories/' + ${category.id} + '/delete'" method="post" style="display: inline;">
+                            <button type="submit" class="danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="section-subtitle" th:if="${#lists.isEmpty(categories)}" style="margin-top: 12px;">
+                No categories available.
+            </p>
+        </div>
+    </main>
+</div>
+</body>
+</html>

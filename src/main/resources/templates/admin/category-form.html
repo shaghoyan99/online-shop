@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category Form</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: adminSidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-header">
+            <div>
+                <h2 class="section-title" th:text="${category != null ? 'Edit Category' : 'Create Category'}">Create Category</h2>
+                <p class="section-subtitle">Keep naming clear and consistent.</p>
+            </div>
+        </div>
+        <div class="admin-card">
+            <form th:action="${category != null} ? '/admin/categories/' + ${category.id} + '/edit' : '/admin/createCategory'"
+                  method="post">
+                <input type="hidden" name="id" th:if="${category != null}" th:value="${category.id}">
+                <label class="auth-label" for="categoryName">Category name</label>
+                <input id="categoryName" type="text" name="name" placeholder="Category name"
+                       th:value="${category != null ? category.name : ''}" required>
+                <button type="submit" class="form-actions" th:text="${category != null ? 'Save Changes' : 'Save'}">Save</button>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

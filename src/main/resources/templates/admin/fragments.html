@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div th:fragment="adminSidebar">
+    <aside class="admin-sidebar">
+        <h3>Admin</h3>
+        <div class="admin-nav">
+            <a href="/admin/home">Dashboard</a>
+            <a href="/admin/categories">Categories</a>
+            <a href="/admin/products">Products</a>
+            <a href="/admin/users">Users</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </aside>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="page">
+<div th:replace="~{fragments :: headerFragment}"></div>
+
+<main class="page-inner">
+    <div class="section-head">
+        <div>
+            <h2 class="section-title">Product Details</h2>
+            <p class="section-subtitle">Everything you need to know before adding to cart.</p>
+        </div>
+        <span class="pill">Hot pick</span>
+    </div>
+
+    <div class="detail-layout">
+        <div class="detail-card">
+            <img th:if="${product.pictureName != null}"
+                 th:src="@{/image/get(photo=${product.pictureName})}"
+                 alt="Product image">
+            <img th:if="${product.pictureName == null}" src="/images/placeholder.jpg" alt="Product image">
+        </div>
+        <div class="detail-card">
+            <h2 th:text="${product.title}">Product title</h2>
+            <p class="price" th:text="${'$' + product.price}">$0</p>
+            <p class="section-subtitle" th:text="${product.createdAt}">Product createdAt.</p>
+            <p class="section-subtitle" th:text="${product.description}">Product description.</p>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="section-head">
+            <div>
+                <h2 class="section-title">Comments</h2>
+                <p class="section-subtitle">What people are saying.</p>
+            </div>
+        </div>
+        <div class="comment-list">
+            <div class="comment-card" th:each="comment : ${product.comments}">
+                <div>
+                    <strong th:text="${comment.user != null ? comment.user.name + ':' : 'User:'}">User:</strong>
+                    <span th:text="${comment.comment}">Comment text</span>
+                </div>
+                <form sec:authorize="hasAuthority('ADMIN')"
+                      th:action="@{/comment/{id}/delete(id=${comment.id})}"
+                      method="post">
+                    <button type="submit" class="button-danger">Delete</button>
+                </form>
+                <form sec:authorize="hasAuthority('USER')"
+                      th:if="${user != null && comment.user != null && user.id == comment.user.id}"
+                      th:action="@{/comment/{id}/delete(id=${comment.id})}"
+                      method="post">
+                    <button type="submit" class="button-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+        <form class="detail-card detail-form" action="/addComment" method="post" th:if="${user != null}">
+            <input type="hidden" name="productId" th:value="${product.id}">
+            <textarea name="comment" placeholder="Write comment"></textarea>
+            <button type="submit" class="form-actions">Add Comment</button>
+        </form>
+        <p class="section-subtitle" th:if="${user == null}">Login to add a comment.</p>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="page">
+<div th:replace="~{fragments :: headerFragment}"></div>
+
+<main class="page-inner">
+    <section class="hero">
+        <div class="hero-text">
+            <span class="pill">Curated categories</span>
+            <h1 class="hero-title">Shop by vibe, not by aisle.</h1>
+            <p>Browse categories built around real moments and everyday needs. Pick one and dive into products made for it.</p>
+        </div>
+        <div class="hero-card">
+            <h3>Fresh drops weekly</h3>
+            <p class="section-subtitle">Stay close to the newest arrivals and best-rated items across the store.</p>
+            <button type="button">Explore highlights</button>
+        </div>
+    </section>
+
+    <section class="section" sec:authorize="hasAuthority('ADMIN')">
+        <div class="section-head">
+            <div>
+                <h2 class="section-title">Admin Panel</h2>
+                <p class="section-subtitle">Manage products, categories, and users.</p>
+            </div>
+        </div>
+        <div class="hero-card">
+            <h3>Go to dashboard</h3>
+            <p class="section-subtitle">Open the admin tools in a separate view.</p>
+            <a href="/admin/home">
+                <button type="button">Admin Panel</button>
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-head">
+            <div>
+                <h2 class="section-title">All Categories</h2>
+                <p class="section-subtitle">Pick a category to start shopping.</p>
+            </div>
+        </div>
+        <div class="category-grid">
+            <a th:each="category : ${categories}"
+               th:href="'/categories/' + ${category.id} + '/products'"
+               class="category-card">
+                <h3 th:text="${category.name}">Category Name</h3>
+                <p class="category-meta">See products and deals</p>
+            </a>
+        </div>
+    </section>
+</main>
+</body>
+</html>
