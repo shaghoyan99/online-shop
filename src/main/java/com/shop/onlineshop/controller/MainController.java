@@ -6,11 +6,9 @@ import com.shop.onlineshop.model.User;
 import com.shop.onlineshop.service.CategoryService;
 import com.shop.onlineshop.service.ProductService;
 import com.shop.onlineshop.service.UserService;
-import com.shop.onlineshop.service.security.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -38,11 +36,8 @@ public class MainController {
 
 
     @GetMapping("/")
-    public String home(@AuthenticationPrincipal CurrentUser currentUser, ModelMap modelMap){
-        if (currentUser != null){
-            modelMap.addAttribute("user",currentUser.getUser());
-            modelMap.addAttribute("categories", categoryService.findAll());
-        }
+    public String home(ModelMap modelMap){
+        modelMap.addAttribute("categories", categoryService.findAll());
         return "index";
     }
 
@@ -55,18 +50,6 @@ public class MainController {
         return "product";
     }
 
-    @GetMapping("/products/{productId}")
-    public String productDetails(
-            @PathVariable int productId,
-            @AuthenticationPrincipal CurrentUser currentUser,
-            Model model) {
-        Product product = productService.findById(productId);
-        model.addAttribute("product", product);
-        if (currentUser != null) {
-            model.addAttribute("user", currentUser.getUser());
-        }
-        return "product-details";
-    }
 
     @GetMapping("/login")
     public String loginPage(@RequestParam(required = false) String msg,ModelMap modelMap){

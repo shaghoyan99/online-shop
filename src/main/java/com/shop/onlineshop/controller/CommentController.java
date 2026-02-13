@@ -50,7 +50,7 @@ public class CommentController {
         int productId = comment.getProduct().getId();
         int categoryId = comment.getProduct().getCategory().getId();
         commentService.deleteById(id);
-        return "redirect:/categories/" + categoryId + "/products/" + productId;
+        return "redirect:/products/" + productId;
     }
 
 }

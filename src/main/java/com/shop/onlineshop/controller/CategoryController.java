@@ -31,27 +31,4 @@ public class CategoryController {
         model.addAttribute("products", products);
         return "product";
     }
-
-    @GetMapping("/admin/categories/{id}/edit")
-    public String editCategory(@PathVariable int id, ModelMap modelMap) {
-        modelMap.addAttribute("category", categoryService.findById(id));
-        return "admin/category-form";
-    }
-
-    @PostMapping("/admin/categories/{id}/edit")
-    public String editCategoryPost(@PathVariable int id, @ModelAttribute Category category) {
-        Category existing = categoryService.findById(id);
-        if (existing == null) {
-            return "redirect:/admin/categories";
-        }
-        existing.setName(category.getName());
-        categoryService.save(existing);
-        return "redirect:/admin/categories";
-    }
-
-    @PostMapping("/admin/categories/{id}/delete")
-    public String deleteCategory(@PathVariable int id) {
-        categoryService.deleteById(id);
-        return "redirect:/admin/categories";
-    }
 }

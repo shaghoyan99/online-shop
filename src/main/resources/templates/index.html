@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Categories</title>
+    <title th:text="#{page.index.title}"></title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body class="page">
-<div th:replace="~{fragments :: headerFragment}"></div>
+<div  th:replace="~{fragments/HeaderFragment::headerFragment}"></div>
 
 <main class="page-inner">
     <section class="hero">
@@ -47,7 +47,7 @@
         </div>
         <div class="category-grid">
             <a th:each="category : ${categories}"
-               th:href="'/categories/' + ${category.id} + '/products'"
+               th:href="'/' + ${category.id} + '/products'"
                class="category-card">
                 <h3 th:text="${category.name}">Category Name</h3>
                 <p class="category-meta">See products and deals</p>

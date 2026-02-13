@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div th:fragment="headerFragment">
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="/">
+                <span class="brand-mark">MS</span>
+                <span th:text="#{fragment.main.header.name}"></span>
+            </a>
+            <nav class="nav-links">
+                <a href="/" th:text="#{fragment.main.header.button.home}"></a>
+                <a th:if="${user == null}" href="/register" th:text="#{fragment.main.header.button.register}"></a>
+                <a th:if="${user == null}" href="/login" th:text="#{fragment.main.header.button.login}"></a>
+                <a th:if="${user != null}" href="/logout" th:text="#{fragment.main.header.button.logout}"></a>
+                <a href="?lang=en">EN</a>
+                <a href="?lang=ru">RU</a>
+                <a href="?lang=hy">HY</a>
+            </nav>
+            <span class="user-chip" th:if="${user != null}"><span th:text="#{fragment.main.header.welcome}"></span> <span th:text="${'  ' + user.name + ' ' + user.surname}"></span></span>
+        </div>
+    </header>
+</div>
+</body>
+</html>

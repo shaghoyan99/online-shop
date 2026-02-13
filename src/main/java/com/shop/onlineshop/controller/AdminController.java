@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,9 +60,6 @@ public class AdminController {
 
     @GetMapping("/createProduct")
     public String createProduct(@AuthenticationPrincipal CurrentUser currentUser,ModelMap modelMap){
-        if (currentUser != null) {
-            modelMap.addAttribute("user", currentUser.getUser());
-        }
         modelMap.addAttribute("categories",categoryService.findAll());
         return "admin/product-form";
     }
@@ -82,6 +80,58 @@ public class AdminController {
         return "redirect:/admin/products";
     }
 
+
+    @GetMapping("/admin/products/{id}/details")
+    public String adminProductDetails(@PathVariable int id) {
+        return "redirect:/products/" + id;
+    }
+
+    @GetMapping("/admin/products/{id}/delete")
+    public String deleteProduct(@PathVariable int id) {
+        productService.deleteById(id);
+        return "redirect:/admin/products";
+    }
+
+    @GetMapping("/admin/products/{id}/edit")
+    public String editProduct(@PathVariable int id, ModelMap modelMap){
+        modelMap.addAttribute("product", productService.findById(id));
+        modelMap.addAttribute("categories", categoryService.findAll());
+        return "admin/product-form";
+    }
+
+    @PostMapping("/admin/products/{id}/edit")
+    public String editProductPost(@PathVariable int id,
+                                  @ModelAttribute Product product,
+                                  @RequestParam(value = "photo", required = false) MultipartFile multipartFile){
+        Product existing = productService.findById(id);
+        if (existing == null) {
+            return "redirect:/admin/products";
+        }
+
+        product.setId(id);
+        product.setComments(existing.getComments());
+
+        if (product.getCategory() == null || product.getCategory().getId() == 0) {
+            product.setCategory(existing.getCategory());
+        }
+
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
+            File file = new File(imageDirectoryPath + fileName);
+            try {
+                multipartFile.transferTo(file);
+                product.setPictureName(fileName);
+            } catch (IOException e) {
+                throw new RuntimeException("File not found");
+            }
+        } else {
+            product.setPictureName(existing.getPictureName());
+        }
+
+        productService.save(product);
+        return "redirect:/admin/products";
+    }
+
     @GetMapping("/createCategory")
     public String createCategory(){
         return "admin/category-form";
@@ -93,5 +143,27 @@ public class AdminController {
         return "redirect:/admin/categories";
     }
 
+    @GetMapping("/admin/categories/{id}/edit")
+    public String editCategory(@PathVariable int id, ModelMap modelMap) {
+        modelMap.addAttribute("category", categoryService.findById(id));
+        return "admin/category-form";
+    }
+
+    @PostMapping("/admin/categories/{id}/edit")
+    public String editCategoryPost(@PathVariable int id, @ModelAttribute Category category) {
+        Category existing = categoryService.findById(id);
+        if (existing == null) {
+            return "redirect:/admin/categories";
+        }
+        existing.setName(category.getName());
+        categoryService.save(existing);
+        return "redirect:/admin/categories";
+    }
+
+    @PostMapping("/admin/categories/{id}/delete")
+    public String deleteCategory(@PathVariable int id) {
+        categoryService.deleteById(id);
+        return "redirect:/admin/categories";
+    }
 
 }

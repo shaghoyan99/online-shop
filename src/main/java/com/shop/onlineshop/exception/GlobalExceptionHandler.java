@@ -13,6 +13,6 @@ public class GlobalExceptionHandler {
             RedirectAttributes redirectAttributes) {
 
         redirectAttributes.addFlashAttribute("msg", ex.getMessage());
-        return "redirect:/members";
+        return "redirect:/login";
     }
 }

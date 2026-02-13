@@ -23,8 +23,8 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/",
-                                "/products",
-                                "/products/details",
+                                "/{id}/products",
+                                "/products/{productId}",
                                 "/login",
                                 "/register",
                                 "/image/**",
@@ -34,8 +34,7 @@ public class WebSecurityConfig {
                                 "/images/**",
                                 "/webjars/**",
                                 "/favicon.ico").permitAll()
-                        .requestMatchers(
-                                "/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/comment/**").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -52,7 +51,7 @@ public class WebSecurityConfig {
                         logout
                                 .logoutUrl("/logout")
                                 .permitAll()
-                                .logoutSuccessUrl("/login")
+                                .logoutSuccessUrl("/")
                 );
         return httpSecurity.build();
     }
