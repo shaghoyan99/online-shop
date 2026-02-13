@@ -14,8 +14,8 @@
             <nav class="nav-links">
                 <a href="/" th:text="#{fragment.main.header.button.home}"></a>
                 <a th:if="${user == null}" href="/register" th:text="#{fragment.main.header.button.register}"></a>
-                <a th:if="${user == null}" href="/login" th:text="#{fragment.main.header.button.login}"></a>
-                <a th:if="${user != null}" href="/logout" th:text="#{fragment.main.header.button.logout}"></a>
+                <a th:if="${user == null}" href="/login" th:text="#{button.login}"></a>
+                <a th:if="${user != null}" href="/logout" th:text="#{button.logout}"></a>
                 <a href="?lang=en">EN</a>
                 <a href="?lang=ru">RU</a>
                 <a href="?lang=hy">HY</a>

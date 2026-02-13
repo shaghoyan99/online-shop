@@ -6,12 +6,11 @@
 <body>
 <div th:fragment="adminSidebar">
     <aside class="admin-sidebar">
-        <h3>Admin</h3>
         <div class="admin-nav">
-            <a href="/admin/home">Dashboard</a>
-            <a href="/admin/categories">Categories</a>
-            <a href="/admin/products">Products</a>
-            <a href="/admin/users">Users</a>
+            <a href="/admin/home" th:text="#{fragment.admin.navbar.dashboard}"></a>
+            <a href="/admin/categories" th:text="#{fragment.admin.navbar.categories}">Categories</a>
+            <a href="/admin/products" th:text="#{fragment.admin.navbar.products}"></a>
+            <a href="/admin/users" th:text="#{fragment.admin.navbar.users}">Users</a>
             <a href="/logout">Logout</a>
             <a href="?lang=en">EN</a>
             <a href="?lang=ru">RU</a>

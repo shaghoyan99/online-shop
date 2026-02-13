@@ -2,40 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title th:text="#{page.register.title}"></title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body class="auth-page">
 <div class="auth-shell">
-    <section class="auth-visual">
-        <div class="auth-brand">
-            <span class="brand-mark">MS</span>
-            <span class="brand-name">MyShop</span>
-        </div>
-        <h1>Join the club</h1>
-        <p>Create your account to save favorites, build wishlists, and get early access drops.</p>
-        <p>One account. All your orders. No hassle.</p>
-    </section>
     <section class="auth-card">
         <div>
-            <h2>Create account</h2>
-            <p class="auth-subtitle">It only takes a minute.</p>
+            <h2 th:text="#{register.body.title}"></h2>
+            <p class="auth-subtitle" th:text="#{register.body.subtitle}"></p>
         </div>
         <div th:if="${msg} != null" class="auth-message" th:text="${msg}"></div>
         <form action="/register" method="post" class="auth-form">
-            <label class="auth-label" for="name">Name</label>
-            <input class="auth-input" id="name" type="text" name="name" placeholder="First name" required autocomplete="given-name">
-            <label class="auth-label" for="surname">Surname</label>
-            <input class="auth-input" id="surname" type="text" name="surname" placeholder="Last name" required autocomplete="family-name">
-            <label class="auth-label" for="email">Email</label>
-            <input class="auth-input" id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
-            <label class="auth-label" for="password">Password</label>
-            <input class="auth-input" id="password" type="password" name="password" placeholder="Create a password" required autocomplete="new-password">
-            <button class="auth-button" type="submit">Create account</button>
+            <label class="auth-label" for="name" th:text="#{register.form.input.name}"></label>
+            <input class="auth-input" id="name" type="text" name="name" th:placeholder="#{register.form.input.name.placeholder}" required autocomplete="given-name">
+            <label class="auth-label" for="surname" th:text="#{register.form.input.surname}"></label>
+            <input class="auth-input" id="surname" type="text" name="surname" th:placeholder="#{register.form.input.surname.placeholder}" required autocomplete="family-name">
+            <label class="auth-label" for="email" th:text="#{register.form.input.email}"></label>
+            <input class="auth-input" id="email" type="email" name="email" th:placeholder="#{register.form.input.email.placeholder}" required autocomplete="email">
+            <label class="auth-label" for="password" th:text="#{register.form.input.password}"></label>
+            <input class="auth-input" id="password" type="password" name="password" th:placeholder="#{register.form.input.password.placeholder}" required autocomplete="new-password">
+            <button class="auth-button" type="submit" th:text="#{register.form.button}"></button>
         </form>
         <p class="auth-alt">
-            Already have an account?
-            <a href="/login">Login</a>
+            <a href="/login" th:text="#{register.button.login.page}"></a>
         </p>
     </section>
 </div>

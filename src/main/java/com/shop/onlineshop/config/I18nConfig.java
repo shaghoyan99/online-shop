@@ -15,10 +15,11 @@ public class I18nConfig implements WebMvcConfigurer {
 
     @Bean
     public LocaleResolver localeResolver() {
-        SessionLocaleResolver clr = new SessionLocaleResolver();
-        clr.setDefaultLocale(Locale.ENGLISH);
-        return clr;
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(Locale.US);
+        return slr;
     }
+
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
@@ -26,6 +27,7 @@ public class I18nConfig implements WebMvcConfigurer {
         lci.setParamName("lang");
         return lci;
     }
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

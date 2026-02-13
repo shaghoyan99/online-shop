@@ -2,36 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title th:text="#{page.login.title}"></title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body class="auth-page">
 <div class="auth-shell">
-    <section class="auth-visual">
-        <div class="auth-brand">
-            <span class="brand-mark">MS</span>
-            <span class="brand-name">MyShop</span>
-        </div>
-        <h1>Back for more?</h1>
-        <p>Sign in to pick up your cart, track deliveries, and unlock member-only deals.</p>
-        <p>Fast checkout. Clean design. Shopping that feels effortless.</p>
-    </section>
     <section class="auth-card">
         <div>
-            <h2>Login</h2>
-            <p class="auth-subtitle">Use your email and password to continue.</p>
+            <h2 th:text="#{login.body.text.title}"></h2>
+            <p class="auth-subtitle" th:text="#{login.body.text.subtitle}"></p>
         </div>
         <div th:if="${msg} != null" class="auth-message" th:text="${msg}"></div>
         <form action="/login" method="post" class="auth-form">
-            <label class="auth-label" for="email">Email</label>
-            <input class="auth-input" id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
-            <label class="auth-label" for="password">Password</label>
-            <input class="auth-input" id="password" type="password" name="password" placeholder="Your password" required autocomplete="current-password">
-            <button class="auth-button" type="submit">Login</button>
+            <label class="auth-label" for="email" th:text="#{login.form.input.email}"></label>
+            <input class="auth-input" id="email" type="email" name="email" th:placeholder="#{login.form.input.email.placeholder}" required autocomplete="email">
+            <label class="auth-label" for="password" th:text="#{login.form.input.password}"></label>
+            <input class="auth-input" id="password" type="password" name="password" th:placeholder="#{login.form.input.password.placeholder}" required autocomplete="current-password">
+            <button class="auth-button" type="submit" th:text="#{login.form.button}"></button>
         </form>
         <p class="auth-alt">
-            New here?
-            <a href="/register">Create an account</a>
+            <a href="/register" th:text="#{login.button.register.page}"></a>
         </p>
     </section>
 </div>

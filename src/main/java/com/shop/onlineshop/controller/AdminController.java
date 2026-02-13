@@ -81,25 +81,25 @@ public class AdminController {
     }
 
 
-    @GetMapping("/admin/products/{id}/details")
+    @GetMapping("/products/{id}/details")
     public String adminProductDetails(@PathVariable int id) {
         return "redirect:/products/" + id;
     }
 
-    @GetMapping("/admin/products/{id}/delete")
+    @GetMapping("/products/{id}/delete")
     public String deleteProduct(@PathVariable int id) {
         productService.deleteById(id);
         return "redirect:/admin/products";
     }
 
-    @GetMapping("/admin/products/{id}/edit")
+    @GetMapping("/products/{id}/edit")
     public String editProduct(@PathVariable int id, ModelMap modelMap){
         modelMap.addAttribute("product", productService.findById(id));
         modelMap.addAttribute("categories", categoryService.findAll());
         return "admin/product-form";
     }
 
-    @PostMapping("/admin/products/{id}/edit")
+    @PostMapping("/products/{id}/edit")
     public String editProductPost(@PathVariable int id,
                                   @ModelAttribute Product product,
                                   @RequestParam(value = "photo", required = false) MultipartFile multipartFile){
@@ -143,13 +143,13 @@ public class AdminController {
         return "redirect:/admin/categories";
     }
 
-    @GetMapping("/admin/categories/{id}/edit")
+    @GetMapping("/categories/{id}/edit")
     public String editCategory(@PathVariable int id, ModelMap modelMap) {
         modelMap.addAttribute("category", categoryService.findById(id));
         return "admin/category-form";
     }
 
-    @PostMapping("/admin/categories/{id}/edit")
+    @PostMapping("/categories/{id}/edit")
     public String editCategoryPost(@PathVariable int id, @ModelAttribute Category category) {
         Category existing = categoryService.findById(id);
         if (existing == null) {
@@ -160,7 +160,7 @@ public class AdminController {
         return "redirect:/admin/categories";
     }
 
-    @PostMapping("/admin/categories/{id}/delete")
+    @PostMapping("/categories/{id}/delete")
     public String deleteCategory(@PathVariable int id) {
         categoryService.deleteById(id);
         return "redirect:/admin/categories";
