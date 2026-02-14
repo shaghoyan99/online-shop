@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Home</title>
+    <title th:text="#{page.admin.home}"></title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body class="admin-page">
@@ -11,16 +11,16 @@
     <main class="admin-main">
         <div class="admin-header">
             <div>
-                <h2 class="section-title">Admin Panel</h2>
-                <p class="section-subtitle">Manage categories, products, and user accounts.</p>
+                <h2 class="section-title" th:text="#{admin.home.header.title}"></h2>
+                <p class="section-subtitle" th:text="#{admin.home.header.subtitle}"></p>
             </div>
             <a href="/">
-                <button type="button">Main Page</button>
+                <button type="button" th:text="#{admin.home.header.button.name}"></button>
             </a>
         </div>
         <div class="admin-card">
-            <h3>Welcome back</h3>
-            <p class="section-subtitle">Everything is under control. Pick a section to start managing the shop.</p>
+            <h3 th:text="#{admin.home.body.title}"></h3>
+            <p class="section-subtitle" th:text="#{admin.home.body.subtitle}"></p>
         </div>
     </main>
 </div>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Categories</title>
+    <title th:text="#{page.categories.title}"></title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body class="admin-page">
@@ -11,11 +11,11 @@
     <main class="admin-main">
         <div class="admin-header">
             <div>
-                <h2 class="section-title">Categories</h2>
-                <p class="section-subtitle">Organize the store by grouping products.</p>
+                <h2 class="section-title" th:text="#{admin.categories.header.title}"></h2>
+                <p class="section-subtitle" th:text="#{admin.categories.header.subtitle}"></p>
             </div>
             <a href="/admin/createCategory">
-                <button type="button">Create Category</button>
+                <button type="button" th:text="#{admin.categories.header.button.name}"></button>
             </a>
         </div>
 
@@ -23,27 +23,25 @@
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                 <tr>
-                    <th style="text-align: left; padding: 8px 0;">Category</th>
-                    <th style="text-align: left; padding: 8px 0;">Actions</th>
+                    <th style="text-align: left; padding: 8px 0;" th:text="#{admin.categories.table.th.one}"></th>
+                    <th style="text-align: left; padding: 8px 0;" th:text="#{admin.categories.table.th.two}"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="category : ${categories}" style="border-top: 1px solid #eef0f5;">
-                    <td style="padding: 10px 0;" th:text="${category.name}">Category name</td>
+                    <td style="padding: 10px 0;" th:text="${category.name}"></td>
                     <td style="padding: 10px 0;">
                         <a th:href="'/admin/categories/' + ${category.id} + '/edit'">
-                            <button type="button">Change</button>
+                            <button type="button" th:text="#{admin.categories.table.action.button.change}"></button>
                         </a>
                         <form th:action="'/admin/categories/' + ${category.id} + '/delete'" method="post" style="display: inline;">
-                            <button type="submit" class="danger">Delete</button>
+                            <button type="submit" class="danger" th:text="#{admin.categories.table.action.button.delete}"></button>
                         </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <p class="section-subtitle" th:if="${#lists.isEmpty(categories)}" style="margin-top: 12px;">
-                No categories available.
-            </p>
+            <p class="section-subtitle" th:if="${#lists.isEmpty(categories)}" style="margin-top: 12px;" th:text="#{admin.categories.body.empty}"></p>
         </div>
     </main>
 </div>
