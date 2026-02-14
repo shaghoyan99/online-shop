@@ -11,7 +11,7 @@
     <main class="admin-main">
         <div class="admin-header">
             <div>
-                <h2 class="section-title" th:text="${product != null ? #{admin.product.header.edit.title} : #{admin.product.header.create.title}}"></h2>
+                <h2 class="section-title" th:text="${product != null} ? #{admin.product.header.edit.title} : #{admin.product.header.create.title}"></h2>
                 <p class="section-subtitle" th:text="#{admin.product.header.subtitle}"></p>
             </div>
         </div>
@@ -42,7 +42,7 @@
                 <input id="photo" type="file" name="photo">
                 <p class="section-subtitle" th:if="${product != null}" th:text="#{admin.product.form.input.photo.text}"></p>
                 <button type="submit" class="form-actions"
-                        th:text="${product != null ? #{admin.product.form.button.edit} : #{admin.product.form.button.save}}"></button>
+                        th:text="${product != null} ? #{admin.product.form.button.edit} : #{admin.product.form.button.save}"></button>
             </form>
         </div>
     </main>

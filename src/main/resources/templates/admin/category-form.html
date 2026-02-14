@@ -11,7 +11,7 @@
     <main class="admin-main">
         <div class="admin-header">
             <div>
-                <h2 class="section-title" th:text="${category != null ? #{admin.category.edit.header.title} : #{admin.category.create.header.title}}">Create Category</h2>
+                <h2 class="section-title" th:text="${category != null} ? #{admin.category.edit.header.title} : #{admin.category.create.header.title}"></h2>
                 <p class="section-subtitle" th:text="#{admin.category.header.subtitle}"></p>
             </div>
         </div>
@@ -22,7 +22,7 @@
                 <label class="auth-label" for="categoryName" th:text="#{admin.category.form.input.name}"></label>
                 <input id="categoryName" type="text" name="name" th:placeholder="#{admin.category.form.input.name}"
                        th:value="${category != null ? category.name : ''}" required>
-                <button type="submit" class="form-actions" th:text="${category != null ? #{admin.category.form.button.edit} : #{admin.category.form.button.save}}">Save</button>
+                <button type="submit" class="form-actions" th:text="${category != null} ? #{admin.category.form.button.edit} : #{admin.category.form.button.save}">Save</button>
             </form>
         </div>
     </main>
